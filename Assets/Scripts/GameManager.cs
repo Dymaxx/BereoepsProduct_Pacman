@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     
     private void Start(){
         NewGame();
-        pacman.PlayEatPelletSound();
+       
     }
 
     private void Update(){
@@ -81,7 +81,10 @@ public class GameManager : MonoBehaviour
         // Speel dood geluid af
         pacman.PlayDeathSound();
 
-        // Pacman wordt gedeactiveerd pas na het geluid
+        // Speel de death animatie af
+        pacman.PlayDeathAnimation();
+
+        // Pacman wordt gedeactiveerd pas na het geluid en animatie
         float soundDuration = pacman.deathSound.length;
         Invoke(nameof(DeactivatePacman), soundDuration);
 

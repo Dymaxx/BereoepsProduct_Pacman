@@ -7,10 +7,12 @@ public class Pacman : MonoBehaviour
     [Header("Audio Clips")]
     public AudioClip eatPelletSound;
     public AudioClip deathSound;
-    public AudioClip moveSound; // 🔥 Nieuw: loopend geluid toevoegen!
 
     private AudioSource audioSource;
     private bool isDeathSoundPlaying = false;
+
+    public Sprite[] deathSpritesArray;  // Een array van sprites voor de death animatie
+    public Sprite[] normalSpritesArray; // Een array van sprites voor de normale animatie
 
     private void Awake()
     {
@@ -20,7 +22,7 @@ public class Pacman : MonoBehaviour
 
     private void Start()
     {
-        PlayMoveSound(); // 🔥 Start loop-geluid als Pacman begint
+        // Geen animatie starten in de Start() om te voorkomen dat de eerste sprite direct wordt aangeroepen
     }
 
     void Update()
@@ -50,7 +52,7 @@ public class Pacman : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         this.movement.ResetState();
-        PlayMoveSound(); // 🔥 Speel loop-geluid opnieuw bij respawn
+        PlayNormalAnimation(); // Speel de normale animatie af bij reset
     }
 
     public void PlayEatPelletSound()
@@ -65,8 +67,8 @@ public class Pacman : MonoBehaviour
     {
         if (!isDeathSoundPlaying && deathSound != null)
         {
+            audioSource.Stop(); // <<<<<< STOP alles wat nu speelt (bijv. waka waka eet geluid)
             isDeathSoundPlaying = true;
-            StopMoveSound(); // 🔥 Stop loop-geluid als hij dood gaat
             audioSource.PlayOneShot(deathSound);
             Invoke(nameof(ResetDeathSoundFlag), deathSound.length);
         }
@@ -77,29 +79,42 @@ public class Pacman : MonoBehaviour
         isDeathSoundPlaying = false;
     }
 
-    public void PlayMoveSound()
-    {
-        if (moveSound != null)
-        {
-            audioSource.clip = moveSound;
-            audioSource.loop = true;
-            audioSource.Play();
-        }
-    }
-
-    public void StopMoveSound()
-    {
-        if (audioSource.isPlaying && audioSource.clip == moveSound)
-        {
-            audioSource.Stop();
-            audioSource.clip = null;
-            audioSource.loop = false;
-        }
-    }
-
     public void StopMovement()
     {
-        this.movement.SetDirection(Vector2.zero);
-        StopMoveSound(); // 🔥 Extra veiligheid: stop loop-geluid als je movement stopt
+        this.movement.SetDirection(Vector2.zero); // Stop de beweging
+    }
+
+    // Methode voor het afspelen van de death animatie
+    public void PlayDeathAnimation()
+    {
+        AnimatedSprite animatedSprite = GetComponent<AnimatedSprite>();
+
+        if (animatedSprite != null)
+        {
+            animatedSprite.sprites = deathSpritesArray;
+            animatedSprite.loop = false;
+            animatedSprite.Restart();
+        }
+        else
+        {
+            Debug.LogError("No AnimatedSprite component found on " + gameObject.name);
+        }
+    }
+
+    // Methode voor het afspelen van de normale animatie
+    private void PlayNormalAnimation()
+    {
+        AnimatedSprite animatedSprite = GetComponent<AnimatedSprite>();
+
+        if (animatedSprite != null)
+        {
+            animatedSprite.sprites = normalSpritesArray; // Stel de normale sprites in
+            animatedSprite.loop = true; // Zorg ervoor dat de animatie doorloopt
+            animatedSprite.Restart(); // Start de normale animatie vanaf het begin
+        }
+        else
+        {
+            Debug.LogError("No AnimatedSprite component found on " + gameObject.name);
+        }
     }
 }

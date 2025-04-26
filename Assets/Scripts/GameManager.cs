@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+﻿using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     
     private void Start(){
         NewGame();
+        pacman.PlayEatPelletSound();
     }
 
     private void Update(){
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
         }
 
         this.pacman.ResetState();
+        pacman.PlayEatPelletSound();
     }
 
     private void GameOver(){
@@ -70,15 +72,48 @@ public class GameManager : MonoBehaviour
         this.ghostMultiplier++;
     }
 
-    public void PacManEaten(){
-        this.pacman.gameObject.SetActive(false);
-        SetLives(this.Lives - 1);
+    public void PacManEaten()
+    {
+        // Stop alle beweging
+        pacman.StopMovement();
+        StopAllGhosts();
 
-        if(this.Lives > 0){
-            Invoke(nameof(ResetState), 3.0f);
-        }else{
-            GameOver();
+        // Speel dood geluid af
+        pacman.PlayDeathSound();
+
+        // Pacman wordt gedeactiveerd pas na het geluid
+        float soundDuration = pacman.deathSound.length;
+        Invoke(nameof(DeactivatePacman), soundDuration);
+
+        if (this.Lives > 0)
+        {
+            Invoke(nameof(ResetState), soundDuration + 0.5f);
         }
+        else
+        {
+            Invoke(nameof(GameOver), soundDuration + 0.5f);
+        }
+
+        // Trek leven af
+        SetLives(this.Lives - 1);
+    }
+
+    private void DeactivatePacman()
+    {
+        pacman.gameObject.SetActive(false);
+    }
+
+    private void StopAllGhosts()
+    {
+        for (int i = 0; i < this.ghosts.Length; i++)
+        {
+            this.ghosts[i].Movement.SetDirection(Vector2.zero); // Zet richting naar 0 (stil)
+            this.ghosts[i].enabled = false; // Optioneel: helemaal Ghost script pauzeren
+        }
+    }
+    private void HidePacman()
+    {
+        pacman.gameObject.SetActive(false);
     }
 
     public void PelletEaten(Pellet pellet)

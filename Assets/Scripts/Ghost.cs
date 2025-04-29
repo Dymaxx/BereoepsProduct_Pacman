@@ -10,6 +10,11 @@ public class Ghost : MonoBehaviour
     public GhostChase Chase { get; private set; }
     public GhostFrightened Frightened { get; private set; }
 
+    public AudioClip MoveSound;
+  
+
+    private AudioSource audioSource;
+
     public GhostBehavior initialBehavior;
     public Transform target;
     public int points = 200;
@@ -21,6 +26,8 @@ public class Ghost : MonoBehaviour
         Scatter = GetComponent<GhostScatter>();
         Chase = GetComponent<GhostChase>();
         Frightened = GetComponent<GhostFrightened>();
+        this.audioSource = GetComponent<AudioSource>();
+        this.PlayGhostMoveSound();
     }
 
     private void Start()
@@ -68,6 +75,14 @@ public class Ghost : MonoBehaviour
             {
                 FindFirstObjectByType<GameManager>().PacManEaten();
             }
+        }
+    }
+
+    public void PlayGhostMoveSound()
+    {
+        if (MoveSound != null)
+        {
+            audioSource.PlayOneShot(MoveSound);
         }
     }
 }

@@ -6,37 +6,42 @@ public class GameManager : MonoBehaviour
     public Ghost[] ghosts;
     public Pacman pacman;
     public Transform pellets;
-
+    public ScoreManager scoreManager;
+    public LifeManager lifeManager;  // Voeg deze lijn toe voor de LifeManager
     public int ghostMultiplier { get; private set; } = 1;
 
     public int Score { get; private set; }
     public int Lives { get; private set; }
 
-    
-    private void Start(){
+    private void Start()
+    {
         NewGame();
-       
     }
 
-    private void Update(){
-        if(this.Lives <= 0 && Input.anyKeyDown){
+    private void Update()
+    {
+        if (this.Lives <= 0 && Input.anyKeyDown)
+        {
             NewGame();
         }
     }
 
-    private void NewRound(){
-        foreach (Transform pellet in this.pellets){
+    private void NewRound()
+    {
+        foreach (Transform pellet in this.pellets)
+        {
             pellet.gameObject.SetActive(true);
         }
 
         ResetState();
-        
     }
 
-    private void ResetState(){
+    private void ResetState()
+    {
         ResetGhostMultiplier();
 
-        for(int i = 0; i < this.ghosts.Length; i++){
+        for (int i = 0; i < this.ghosts.Length; i++)
+        {
             this.ghosts[i].ResetState();
         }
 
@@ -44,29 +49,47 @@ public class GameManager : MonoBehaviour
         pacman.PlayEatPelletSound();
     }
 
-    private void GameOver(){
-       for(int i = 0; i < this.ghosts.Length; i++){
+    private void GameOver()
+    {
+        for (int i = 0; i < this.ghosts.Length; i++)
+        {
             this.ghosts[i].gameObject.SetActive(false);
         }
 
-        this.pacman.gameObject.SetActive(false); 
+        this.pacman.gameObject.SetActive(false);
     }
 
-    private void NewGame(){
+    private void NewGame()
+    {
         SetScore(0);
-        SetLives(3);
+        scoreManager.ResetScore(); // Reset ook UI
+        SetLives(3);  // Zet het aantal levens op 3
         NewRound();
     }
 
-    private void SetScore(int score){
+    private void SetScore(int score)
+    {
+        int difference = score - this.Score;
         this.Score = score;
+
+        if (scoreManager != null && difference > 0)
+        {
+            scoreManager.AddPoints(difference);
+        }
     }
 
-    private void SetLives(int lives){
+    private void SetLives(int lives)
+    {
         this.Lives = lives;
-    }
 
-    public void GhostEaten(Ghost ghost){
+        // Controleer of lifeManager niet null is en update de UI
+        if (lifeManager != null)
+        {
+            lifeManager.UpdateLives(Lives);  // Update de levens in de UI
+        }
+    }
+    public void GhostEaten(Ghost ghost)
+    {
         int points = (ghost.points * this.ghostMultiplier);
         SetScore(this.Score + points);
         this.ghostMultiplier++;
@@ -74,17 +97,12 @@ public class GameManager : MonoBehaviour
 
     public void PacManEaten()
     {
-        // Stop alle beweging
         pacman.StopMovement();
         StopAllGhosts();
 
-        // Speel dood geluid af
         pacman.PlayDeathSound();
-
-        // Speel de death animatie af
         pacman.PlayDeathAnimation();
 
-        // Pacman wordt gedeactiveerd pas na het geluid en animatie
         float soundDuration = pacman.deathSound.length;
         Invoke(nameof(DeactivatePacman), soundDuration);
 
@@ -97,8 +115,8 @@ public class GameManager : MonoBehaviour
             Invoke(nameof(GameOver), soundDuration + 0.5f);
         }
 
-        // Trek leven af
-        SetLives(this.Lives - 1);
+        SetLives(this.Lives - 1);  // Trek een leven af
+
     }
 
     private void DeactivatePacman()
@@ -110,10 +128,11 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < this.ghosts.Length; i++)
         {
-            this.ghosts[i].Movement.SetDirection(Vector2.zero); // Zet richting naar 0 (stil)
-            this.ghosts[i].enabled = false; // Optioneel: helemaal Ghost script pauzeren
+            this.ghosts[i].Movement.SetDirection(Vector2.zero);
+            this.ghosts[i].enabled = false;
         }
     }
+
     private void HidePacman()
     {
         pacman.gameObject.SetActive(false);
@@ -122,18 +141,17 @@ public class GameManager : MonoBehaviour
     public void PelletEaten(Pellet pellet)
     {
         pellet.gameObject.SetActive(false);
-        SetScore(this.Score +  pellet.points);
+        SetScore(this.Score + pellet.points);
 
         if (!HasRemainingPellets())
         {
-            this.pacman.gameObject.SetActive(false); 
+            this.pacman.gameObject.SetActive(false);
             Invoke(nameof(NewRound), 3.0f);
         }
-
     }
 
-    public void PowerPelletEaten(PowerPellet pellet) {
-        // TODO: Change ghost state
+    public void PowerPelletEaten(PowerPellet pellet)
+    {
         for (int i = 0; i < this.ghosts.Length; i++)
         {
             this.ghosts[i].Frightened.Enable(pellet.duration);
@@ -152,7 +170,6 @@ public class GameManager : MonoBehaviour
             {
                 return true;
             }
-            
         }
         return false;
     }
@@ -161,7 +178,4 @@ public class GameManager : MonoBehaviour
     {
         this.ghostMultiplier = 1;
     }
-     
-
-
 }

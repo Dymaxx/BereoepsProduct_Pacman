@@ -4211,6 +4211,8 @@ GameObject:
   m_Component:
   - component: {fileID: 909078199}
   - component: {fileID: 909078198}
+  - component: {fileID: 909078201}
+  - component: {fileID: 909078200}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4237,6 +4239,8 @@ MonoBehaviour:
   - {fileID: 1569297417}
   pacman: {fileID: 2022063156}
   pellets: {fileID: 430019899}
+  scoreManager: {fileID: 909078200}
+  lifeManager: {fileID: 909078201}
 --- !u!4 &909078199
 Transform:
   m_ObjectHideFlags: 0
@@ -4252,6 +4256,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &909078200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909078197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a609ddb34b29b4584596f81ea2be80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 177131630}
+  highScoreText: {fileID: 1451786105}
+--- !u!114 &909078201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909078197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d318060e96c2f7b41a347e9bd95400d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeImages: []
 --- !u!1 &919449246
 GameObject:
   m_ObjectHideFlags: 0

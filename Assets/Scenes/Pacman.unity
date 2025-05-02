@@ -5309,6 +5309,53 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1419412953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1419412955}
+  - component: {fileID: 1419412954}
+  m_Layer: 0
+  m_Name: GhostAudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1419412954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419412953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 728326ac7e1c5b74d9fc841c35bf9e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseClip: {fileID: 8300000, guid: 55d9f1c1284b3304694e989468d7966d, type: 3}
+  scatterClip: {fileID: 8300000, guid: 55d9f1c1284b3304694e989468d7966d, type: 3}
+  frightenedClip: {fileID: 8300000, guid: 8516758f9213c614f8d448893ce8c92e, type: 3}
+--- !u!4 &1419412955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419412953}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.2483478, y: -2.8369546, z: 0.06756533}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1451786103
 GameObject:
   m_ObjectHideFlags: 0
@@ -12006,3 +12053,4 @@ SceneRoots:
   - {fileID: 225085726}
   - {fileID: 919449250}
   - {fileID: 2057058714}
+  - {fileID: 1419412955}

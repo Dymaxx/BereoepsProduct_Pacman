@@ -36,7 +36,7 @@ public class Pacman : BaseCharacter
         PlayNormalAnimation();
     }
 
-    public void PlayEatPelletSound() => PlaySound(eatPelletSound);
+    public void PlayEatPelletSound() => PlayLoopingSound(eatPelletSound);
 
     public void PlayDeathSound()
     {

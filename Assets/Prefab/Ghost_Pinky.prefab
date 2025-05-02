@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5104592737774779879, guid: 72a97f98be50fdb4bb76cca08cbb328b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3188256830404088632, guid: 72a97f98be50fdb4bb76cca08cbb328b, type: 3}
       propertyPath: m_Name
       value: Ghost_Pinky

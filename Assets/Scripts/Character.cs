@@ -41,6 +41,24 @@ public abstract class BaseCharacter : MonoBehaviour
         }
     }
 
+    protected void PlayLoopingSound(AudioClip clip)
+    {
+        if (clip != null && AudioSource.clip != clip)
+        {
+            AudioSource.Stop();  // Stop het huidige geluid als het anders is
+            AudioSource.clip = clip;
+            AudioSource.loop = true;
+            AudioSource.Play();  // Speel de nieuwe clip direct af
+        }
+    }
+
+    protected void StopLoopingSound()
+    {
+        AudioSource.Stop();
+        AudioSource.clip = null;
+        AudioSource.loop = false;
+    }
+
     protected void SetAnimation(Sprite[] sprites, bool loop)
     {
         if (AnimatedSprite != null)

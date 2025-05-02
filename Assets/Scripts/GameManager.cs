@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
         {
             pellet.gameObject.SetActive(true);
         }
+        // Start het ghost-geluid als het spel begint
+        GhostAudioManager.Instance.SetMode("scatter");    // Voor de scatter-modus
+
 
         ResetState();
     }
@@ -152,14 +155,26 @@ public class GameManager : MonoBehaviour
 
     public void PowerPelletEaten(PowerPellet pellet)
     {
+        // Zet de frightened modus voor alle ghosts aan
         for (int i = 0; i < this.ghosts.Length; i++)
         {
             this.ghosts[i].Frightened.Enable(pellet.duration);
         }
 
-        PelletEaten(pellet);
-        CancelInvoke();
-        Invoke(nameof(ResetGhostMultiplier), pellet.duration);
+        // Speel de frightened geluid af
+        GhostAudioManager.Instance.SetMode("frightened");
+
+        // Zet een timer om terug naar scatter modus te gaan na de duur van de pellet
+        CancelInvoke(); // Zorg ervoor dat je geen eerdere invokes hebt
+        Invoke(nameof(ResetToScatter), pellet.duration); // Zet een Invoke aan voor de reset
+        PelletEaten(pellet); // Het eten van de pellet verwerken
+    }
+    private void ResetToScatter()
+    {
+        
+
+        // Stop het frightened geluid en start scatter geluid
+        GhostAudioManager.Instance.SetMode("scatter");
     }
 
     private bool HasRemainingPellets()

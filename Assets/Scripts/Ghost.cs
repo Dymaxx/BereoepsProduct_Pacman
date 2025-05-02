@@ -21,7 +21,6 @@ public class Ghost : BaseCharacter
         Chase = GetComponent<GhostChase>();
         Frightened = GetComponent<GhostFrightened>();
 
-        PlayGhostMoveSound();
     }
 
     private void Start() => ResetState();

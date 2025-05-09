@@ -6,7 +6,7 @@ Een belangrijk onderdeel van deze opdracht was het toepassen van **overerving** 
 
 ## 🎮 Functies
 
-- Beweeg Pac-Man door het doolhof met de pijltjestoetsen
+- Beweeg Pac-Man door het doolhof met de WASD toetsen
 - Verzamel gewone pellets om punten te scoren
 - Extra levens
 - Verzamel power pellets om tijdelijk geesten te kunnen opeten

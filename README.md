@@ -31,7 +31,7 @@ Een belangrijk onderdeel van deze opdracht was het toepassen van **overerving** 
 ## 🧠 Structuur van het project
 
 - `Assets/Scripts/`: Bevat de C#-scripts voor de besturing van Pac-Man, geesten en spelregels. Hierin is overerving toegepast voor gedeelde functionaliteit.
-- `Assets/Animations/`: Animaties voor Pac-Man en geesten
+- `Assets/Sprites/`: Sprites en sprite-sheets voor Pac-Man, geesten en de omgeving
 - `Assets/Audio/`: Geluidseffecten
 - `Assets/Prefabs/`: Voorgemaakte objecten zoals pellets en geesten
 - `Assets/Scenes/`: De hoofdspeelscène

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public Transform pellets;
     public ScoreManager scoreManager;
     public LifeManager lifeManager;  // Voeg deze lijn toe voor de LifeManager
+    public GhostAudioManager ghostAudioManager;
+    public LevelManager levelManager;
     public int ghostMultiplier { get; private set; } = 1;
 
     public int Score { get; private set; }
@@ -57,9 +59,15 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < this.ghosts.Length; i++)
         {
             this.ghosts[i].gameObject.SetActive(false);
+            
         }
-
+        foreach (AudioSource audio in FindObjectsOfType<AudioSource>())
+        {
+            audio.Stop();
+        }
+        this.ghostAudioManager.StopSound();
         this.pacman.gameObject.SetActive(false);
+        this.lifeManager.SetGameOver();
     }
 
     private void NewGame()
@@ -109,7 +117,7 @@ public class GameManager : MonoBehaviour
         float soundDuration = pacman.deathSound.length;
         Invoke(nameof(DeactivatePacman), soundDuration);
 
-        if (this.Lives > 0)
+        if (this.Lives > 1)
         {
             Invoke(nameof(ResetState), soundDuration + 0.5f);
         }

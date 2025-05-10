@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class LifeManager : MonoBehaviour
 {
     public Image[] lifeImages; // Array van Image-componenten voor levens
     private int lives;
+    public TextMeshProUGUI GameOver;
 
     // Update de UI met het huidige aantal levens
     public void UpdateLives(int lives)
@@ -18,5 +20,12 @@ public class LifeManager : MonoBehaviour
             else
                 lifeImages[i].enabled = false;  // Leven niet zichtbaar
         }
+    }
+
+    public void SetGameOver()
+        
+    {
+            this.GameOver.enabled = true;
+        
     }
 }

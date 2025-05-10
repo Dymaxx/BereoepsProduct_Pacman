@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -5,15 +6,23 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; }
 
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI highScoreText;
+    public List<TextMeshProUGUI> scoreTexts;
+    public List<TextMeshProUGUI> highScoreTexts;
 
     private int score = 0;
     private int highScore = 0;
 
     private void Awake()
     {
-        Instance = this;
+        // Zorg dat dit de enige instance is
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); // voorkom duplicaten
+        }
     }
 
     void Start()
@@ -28,15 +37,25 @@ public class ScoreManager : MonoBehaviour
         if (score > highScore)
         {
             highScore = score;
-            PlayerPrefs.SetInt("", highScore);
+            PlayerPrefs.SetInt("HighScore", highScore); // <-- sleutel was leeg!
+            PlayerPrefs.Save();
         }
         UpdateUI();
     }
 
     private void UpdateUI()
     {
-        scoreText.text = "" + score;
-        highScoreText.text = "" + highScore;
+        foreach (var text in scoreTexts)
+        {
+            if (text != null)
+                text.text = score.ToString();
+        }
+
+        foreach (var text in highScoreTexts)
+        {
+            if (text != null)
+                text.text = highScore.ToString();
+        }
     }
 
     public void ResetScore()

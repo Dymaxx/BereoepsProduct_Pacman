@@ -6,12 +6,12 @@ public class GhostHome : GhostBehavior
     public Transform inside;
     public Transform outside;
 
-    private void OnEnable()
+    public override void OnEnter()
     {
         StopAllCoroutines();
     }
 
-    private void OnDisable()
+    public override void OnExit()
     {
         // Check for active self to prevent error when object is destroyed
         if (gameObject.activeInHierarchy)
@@ -20,17 +20,15 @@ public class GhostHome : GhostBehavior
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public override void Move(GameObject gameObject)
     {
-        // Reverse direction everytime the ghost hits a wall to create the
-        // effect of the ghost bouncing around the home
-        if (enabled && collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-        {
+        // Reverse direction everytime the ghost hits a wall to create the effect of the ghost bouncing around the home
+        if (gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        {   
             Ghost.Movement.SetDirection(-Ghost.Movement.direction);
         }
     }
 
-    [System.Obsolete]
     private IEnumerator ExitTransition()
     {
         // Turn off movement while we manually animate the position
@@ -66,5 +64,4 @@ public class GhostHome : GhostBehavior
         Ghost.Movement.Rigidbody.isKinematic = false;
         Ghost.Movement.enabled = true;
     }
-
 }

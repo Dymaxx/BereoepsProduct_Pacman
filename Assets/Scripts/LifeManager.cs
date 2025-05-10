@@ -2,21 +2,39 @@ using UnityEngine;
 using UnityEngine.UI;
 public class LifeManager : MonoBehaviour
 {
-    public Image[] lifeImages; // Array van Image-componenten voor levens
-    private int lives;
+    public static LifeManager Instance { get; private set; }
 
-    // Update de UI met het huidige aantal levens
+    public Image[] LifeImages;
+
+    [SerializeField]
+    private int startingLives;
+    public int Lives { get; set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void Start()
+    {
+        UpdateLives(startingLives);
+    }
+
     public void UpdateLives(int lives)
     {
-        this.lives = lives;
+        Lives = lives;
 
-        // Zet alle levens uit
-        for (int i = 0; i < lifeImages.Length; i++)
+        for (int i = 0; i < LifeImages.Length; i++)
         {
             if (i < lives)
-                lifeImages[i].enabled = true;  // Leven zichtbaar
+                LifeImages[i].enabled = true; 
             else
-                lifeImages[i].enabled = false;  // Leven niet zichtbaar
+                LifeImages[i].enabled = false;
         }
+    }
+
+    public void ResetLives()
+    {
+        Lives = startingLives;
     }
 }

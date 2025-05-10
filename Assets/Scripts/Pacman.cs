@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts;
+using UnityEngine;
 
 public class Pacman : BaseCharacter
 {
@@ -36,8 +37,68 @@ public class Pacman : BaseCharacter
         PlayNormalAnimation();
     }
 
-    public void PlayEatPelletSound() => PlayLoopingSound(eatPelletSound);
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        HandleInteraction(collision.gameObject);
+    }
 
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        HandleInteraction(collider.gameObject);
+    }
+
+    private void HandleInteraction(GameObject obj)
+    {
+        IEatable eatable = obj.GetComponent<IEatable>();
+        if (eatable != null)
+        {
+            Ghost ghost = obj.GetComponent<Ghost>();
+            if (ghost != null)
+            {
+                if (ghost.BehaviorManager.CurrentBehavior is GhostFrightened)
+                {
+                    ghost.Eaten();
+                }
+                else
+                {
+                    PacmanEaten();
+                }
+            }
+            else
+            {
+                eatable.Eaten();
+            }
+        }
+    }
+
+    private void PacmanEaten()
+    {
+        StopMovement();
+
+        PlayDeathSound();
+        PlayDeathAnimation();
+
+        var soundDuration = deathSound.length;
+        Invoke(nameof(Deactivate), soundDuration);
+
+        if (LifeManager.Instance.Lives > 0)
+        {
+            Invoke(nameof(ResetState), soundDuration + 0.5f);
+        }
+        else
+        {
+            GameManager.Instance.Invoke(nameof(GameManager.Instance.GameOver), soundDuration + 0.5f);
+        }
+
+        LifeManager.Instance.UpdateLives(LifeManager.Instance.Lives - 1);
+    }
+
+    private void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void PlayEatPelletSound() => PlayLoopingSound(eatPelletSound);
     public void PlayDeathSound()
     {
         if (!isDeathSoundPlaying && deathSound != null)
@@ -48,9 +109,7 @@ public class Pacman : BaseCharacter
             Invoke(nameof(ResetDeathSoundFlag), deathSound.length);
         }
     }
-
     private void ResetDeathSoundFlag() => isDeathSoundPlaying = false;
-
     public void PlayDeathAnimation() => SetAnimation(deathSpritesArray, false);
     private void PlayNormalAnimation() => SetAnimation(normalSpritesArray, true);
 }

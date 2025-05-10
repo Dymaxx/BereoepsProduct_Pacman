@@ -2,17 +2,9 @@ using UnityEngine;
 
 public class GhostChase : GhostBehavior
 {
-    private void OnDisable()
+    public override void Move(GameObject gameObject)
     {
-        Ghost.Scatter.Enable();
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Node node = other.GetComponent<Node>();
-
-        // Do nothing while the ghost is frightened
-        if (node != null && enabled && !Ghost.Frightened.enabled)
+        if (gameObject.TryGetComponent<Node>(out var node))
         {
             Vector2 direction = Vector2.zero;
             float minDistance = float.MaxValue;
@@ -20,10 +12,9 @@ public class GhostChase : GhostBehavior
             // Find the available direction that moves closet to pacman
             foreach (Vector2 availableDirection in node.AvailableDirections)
             {
-                // If the distance in this direction is less than the current
-                // min distance then this direction becomes the new closest
+                // If the distance in this direction is less than the current min distance then this direction becomes the new closest
                 Vector3 newPosition = transform.position + new Vector3(availableDirection.x, availableDirection.y);
-                float distance = (Ghost.target.position - newPosition).sqrMagnitude;
+                float distance = (Ghost.Target.position - newPosition).sqrMagnitude;
 
                 if (distance < minDistance)
                 {
@@ -35,5 +26,4 @@ public class GhostChase : GhostBehavior
             Ghost.Movement.SetDirection(direction);
         }
     }
-
 }

@@ -3,15 +3,21 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
+    public static ScoreManager Instance { get; private set; }
+
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScoreText;
 
     private int score = 0;
     private int highScore = 0;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
-        // Laad high score van vorige sessie (optioneel)
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         UpdateUI();
     }
@@ -22,7 +28,7 @@ public class ScoreManager : MonoBehaviour
         if (score > highScore)
         {
             highScore = score;
-            PlayerPrefs.SetInt("", highScore); // Sla op
+            PlayerPrefs.SetInt("", highScore);
         }
         UpdateUI();
     }

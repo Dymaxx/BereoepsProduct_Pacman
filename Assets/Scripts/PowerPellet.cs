@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class PowerPellet : Pellet
 {
-    public float duration = 8.0f;
+    public float Duration = 8.0f;
 
-    protected override void Eat()
+    public override void Eaten()
     {
+        base.Eaten();
         FindFirstObjectByType<GameManager>().PowerPelletEaten(this);
     }
 }
-
-  
-    

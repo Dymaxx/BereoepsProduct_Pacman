@@ -1,56 +1,97 @@
+using Assets.Scripts;
+using System.Collections;
 using UnityEngine;
 
-public class Ghost : BaseCharacter
+public class Ghost : BaseCharacter, IEatable
 {
-    public GhostHome Home { get; private set; }
-    public GhostScatter Scatter { get; private set; }
-    public GhostChase Chase { get; private set; }
-    public GhostFrightened Frightened { get; private set; }
+    public static int GhostMultiplier = 1;
+    public int Points = 200;
 
+    public GhostBehaviorManager BehaviorManager;
+    [SerializeField]
+    private GhostBehavior initialBehavior;
+
+    // Behavior configurations
+    public GhostFrightened Frightened;
+    public GhostChase Chase;
+    public GhostScatter Scatter;
+    public GhostHome Home;
+
+    public Transform Target;
     public AudioClip MoveSound;
-    public GhostBehavior initialBehavior;
-    public Transform target;
-    public int points = 200;
 
     protected override void Awake()
     {
         base.Awake();
-
-        Home = GetComponent<GhostHome>();
-        Scatter = GetComponent<GhostScatter>();
-        Chase = GetComponent<GhostChase>();
-        Frightened = GetComponent<GhostFrightened>();
-
+        BehaviorManager = new GhostBehaviorManager(initialBehavior);
     }
 
-    private void Start() => ResetState();
+    private void Start() 
+    {
+        ResetState();
+        if (initialBehavior is GhostHome)
+        {
+            Invoke(nameof(SwitchToScatter), Home.Duration);
+        }
+    } 
 
     public override void ResetState()
     {
         base.ResetState();
 
-        Frightened.Disable();
-        Chase.Disable();
-        Scatter.Enable();
+        BehaviorManager.SwitchBehavior(initialBehavior);
+    }
 
-        if (Home != initialBehavior)
-            Home.Disable();
+    public void PlayGhostMoveSound() => PlaySound(MoveSound);
 
-        initialBehavior?.Enable();
+    public void Eaten()
+    {
+        ScoreManager.Instance.AddPoints(Points * GhostMultiplier);
+        GhostMultiplier += 1;
+        if (BehaviorManager.CurrentBehavior is GhostFrightened frightened)
+        {
+            SetPosition(Home.inside.position);
+            frightened.Eaten();
+            BehaviorManager.SwitchBehavior(Home);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        HandleMove(collider.gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman"))
-        {
-            GameManager gameManager = FindFirstObjectByType<GameManager>();
+        HandleMove(collision.gameObject);
+    }
 
-            if (Frightened.enabled)
-                gameManager.GhostEaten(this);
-            else
-                gameManager.PacManEaten();
+    private void HandleMove(GameObject gameObject)
+    {
+        BehaviorManager.CurrentBehavior.Move(gameObject);
+    }
+
+    public void SwitchToFrightened()
+    {
+        if(BehaviorManager.CurrentBehavior is not GhostHome)
+        {
+            BehaviorManager.SwitchBehavior(Frightened);
+            CancelInvoke();
+            Invoke(nameof(SwitchToScatter), Frightened.Duration);
         }
     }
 
-    public void PlayGhostMoveSound() => PlaySound(MoveSound);
+    private void SwitchToScatter()
+    {
+        BehaviorManager.SwitchBehavior(Scatter);
+        CancelInvoke();
+        Invoke(nameof(SwitchToChase), Scatter.Duration);
+    }
+
+    private void SwitchToChase()
+    {
+        BehaviorManager.SwitchBehavior(Chase);
+        CancelInvoke();
+        Invoke(nameof(SwitchToScatter), Chase.Duration);
+    }
 }

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private Pacman pacman;
     [SerializeField]
     private Transform pellets;
+    public GameObject myCanvas;
 
     private void Awake()
     {
@@ -48,10 +49,14 @@ public class GameManager : MonoBehaviour
 
         StopAllGhosts();
         pacman.gameObject.SetActive(false);
+        
+        myCanvas.SetActive(true);
+
     }
 
     private void NewGame()
     {
+        myCanvas.SetActive(false);
         ScoreManager.Instance.ResetScore();
         LifeManager.Instance.ResetLives();
         NewRound();

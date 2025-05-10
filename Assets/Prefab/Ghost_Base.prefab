@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 6813749531559559070}
   - component: {fileID: -5104592737774779879}
   - component: {fileID: -8478185982969236161}
+  - component: {fileID: 1900423320110340905}
   m_Layer: 7
   m_Name: Ghost_Base
   m_TagString: Untagged
@@ -351,10 +352,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a724034392685394390a9680072efdaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Points: 200
+  initialBehavior: {fileID: 1740945497300957952}
+  Frightened: {fileID: 8377599449763283050}
+  Chase: {fileID: 9058380400720640200}
+  Scatter: {fileID: 1740945497300957952}
+  Home: {fileID: 8104451631838166756}
+  Target: {fileID: 0}
   MoveSound: {fileID: 8300000, guid: 55d9f1c1284b3304694e989468d7966d, type: 3}
-  initialBehavior: {fileID: 0}
-  target: {fileID: 0}
-  points: 200
 --- !u!114 &8104451631838166756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,6 +582,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1900423320110340905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3188256830404088632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6d991d66a2c9c4a849a6abf179f005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites: []
+  animationTime: 0.25
+  loop: 1
 --- !u!1 &3549600211078389648
 GameObject:
   m_ObjectHideFlags: 0

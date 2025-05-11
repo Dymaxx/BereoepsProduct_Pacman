@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Centrale plek om score bij te houden. Dit regelt ook de score en high score UI.
+/// </summary>
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; }
@@ -14,14 +17,13 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        // Zorg dat dit de enige instance is
         if (Instance == null)
         {
             Instance = this;
         }
         else
         {
-            Destroy(gameObject); // voorkom duplicaten
+            Destroy(gameObject);
         }
     }
 
@@ -31,13 +33,17 @@ public class ScoreManager : MonoBehaviour
         UpdateUI();
     }
 
+    /// <summary>
+    /// Voeg bepaald aantal punten toe aan de totale score. Werkt highscore bij als de score hoger is dan de huidige highscore.
+    /// </summary>
+    /// <param name="points">Aantal punten toe te voegen.</param>
     public void AddPoints(int points)
     {
         score += points;
         if (score > highScore)
         {
             highScore = score;
-            PlayerPrefs.SetInt("HighScore", highScore); // <-- sleutel was leeg!
+            PlayerPrefs.SetInt("HighScore", highScore);
             PlayerPrefs.Save();
         }
         UpdateUI();
@@ -58,6 +64,9 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Zet score terug naar 0.
+    /// </summary>
     public void ResetScore()
     {
         score = 0;

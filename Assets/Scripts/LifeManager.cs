@@ -1,5 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+
+/// <summary>
+/// Centrale plek voor het bijhouden van levens. Deze klasse zorgt ook voor het laten zien van de levens UI.
+/// </summary>
 public class LifeManager : MonoBehaviour
 {
     public static LifeManager Instance { get; private set; }
@@ -20,6 +24,10 @@ public class LifeManager : MonoBehaviour
         UpdateLives(startingLives);
     }
 
+    /// <summary>
+    /// Functie voor het bijwerken van levens. Dit update ook de UI.
+    /// </summary>
+    /// <param name="lives"></param>
     public void UpdateLives(int lives)
     {
         Lives = lives;
@@ -33,6 +41,9 @@ public class LifeManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Zet het aantal levens terug naar het oorspronkelijke aantal.
+    /// </summary>
     public void ResetLives()
     {
         Lives = startingLives;

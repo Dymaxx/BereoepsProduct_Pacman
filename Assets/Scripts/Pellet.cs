@@ -1,6 +1,9 @@
 using Assets.Scripts;
 using UnityEngine;
 
+/// <summary>
+/// De pellet zorgt dat je punten krijgt bij opeten. Als alle pellets zijn opgegeten is het spel voorbij.
+/// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class Pellet : MonoBehaviour, IEatable
 {
@@ -25,6 +28,9 @@ public class Pellet : MonoBehaviour, IEatable
         pelletActiveCount -= 1;
     }
 
+    /// <summary>
+    /// Regelt de acties als de pellet is opgegeten. Je krijgt punten en er wordt gecheckt of je het spel hebt gewonnen als alle pellets zijn opgegeten.
+    /// </summary>
     public virtual void Eaten()
     {
         gameObject.SetActive(false);

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Orchestrates game objects when game states change. Like starting, winning or losing the game.
-/// Additionally orchestrates powerups that influence other objects available in the GameManager.
+/// Coördineert game-objecten wanneer de spelstatus verandert, zoals bij het starten, winnen of verliezen van het spel.
+/// Coördineert daarnaast power-ups die invloed hebben op andere objecten die beschikbaar zijn in de GameManager.
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -34,12 +34,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Regel de acties die de spel moet doen nadat je een scherm hebt overwonnen.
+    /// </summary>
     public void GameWon()
     {
         pacman.gameObject.SetActive(false);
         Invoke(nameof(NewRound), 3.0f);
     }
 
+    /// <summary>
+    /// Regel de acties die de spel moet doen nadat Pacman al zijn levens kwijt is.
+    /// </summary>
     public void GameOver()
     {
         for (int i = 0; i < this.ghosts.Length; i++)
@@ -74,6 +80,10 @@ public class GameManager : MonoBehaviour
         ResetState();
     }
 
+    /// <summary>
+    /// Regel de acties die erbij horen nadat een PowerPellet is opgegeten.
+    /// </summary>
+    /// <param name="pellet">De pellet die is opgegeten, deze bepaald de duur van de powerup.</param>
     public void PowerPelletEaten(PowerPellet pellet)
     {
         for (int i = 0; i < ghosts.Length; i++)

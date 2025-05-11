@@ -1,6 +1,9 @@
 using Assets.Scripts;
 using UnityEngine;
 
+/// <summary>
+/// Spook klasse, dit is de vijand die pacman moet ontwijken. Het spook regelt zijn eigen animaties en bewegingen via GhostBehavior klassen en de GhostBehaviorManager.
+/// </summary>
 public class Ghost : BaseCharacter, IEatable
 {
     public static int GhostMultiplier = 1;
@@ -34,6 +37,9 @@ public class Ghost : BaseCharacter, IEatable
         }
     } 
 
+    /// <summary>
+    /// Reset het spook terug naar zijn originele waardes. Onder anderen: behavior, locatie en animaties.
+    /// </summary>
     public override void ResetState()
     {
         base.ResetState();
@@ -41,8 +47,14 @@ public class Ghost : BaseCharacter, IEatable
         BehaviorManager.SwitchBehavior(initialBehavior);
     }
 
+    /// <summary>
+    /// Speel ghost bewegings geluid af.
+    /// </summary>
     public void PlayGhostMoveSound() => PlaySound(MoveSound);
 
+    /// <summary>
+    /// Regelt de punten als het spook is opgegeten. Locatie en behavior wordt naar Home gewijzigd.
+    /// </summary>
     public void Eaten()
     {
         ScoreManager.Instance.AddPoints(Points * GhostMultiplier);
@@ -70,6 +82,9 @@ public class Ghost : BaseCharacter, IEatable
         BehaviorManager.CurrentBehavior.Move(gameObject);
     }
 
+    /// <summary>
+    /// Wijzigt het spook naar frightened behavior, zodra dit voorbij is wijzigt het het spook weer naar scatter behavior.
+    /// </summary>
     public void SwitchToFrightened()
     {
         if(BehaviorManager.CurrentBehavior is not GhostHome)

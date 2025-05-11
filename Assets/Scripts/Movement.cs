@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// De movement klasse bepaald de snelheid, richting, hitbox en obstakellaag.
+/// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
 {
@@ -23,7 +26,10 @@ public class Movement : MonoBehaviour
     {
         ResetState();
     }
-
+    
+    /// <summary>
+    /// Wijzigt alle waardes terug naar originele staat.
+    /// </summary>
     public void ResetState()
     {
         speedMultiplier = 1f;
@@ -51,6 +57,11 @@ public class Movement : MonoBehaviour
         Rigidbody.MovePosition(position + translation);
     }
 
+    /// <summary>
+    /// Wijzig richting van een GameObject
+    /// </summary>
+    /// <param name="direction">Nieuwe richting</param>
+    /// <param name="forced">Wijzigt richting zonder rekening te houden met obstakels</param>
     public void SetDirection(Vector2 direction, bool forced = false)
     {
         // Only set the direction if the tile in that direction is available
@@ -67,6 +78,11 @@ public class Movement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Controleert of een GameObject bijna tegen een muur aan loopt
+    /// </summary>
+    /// <param name="direction">Richting om te controleren of daar een muur is</param>
+    /// <returns>true als er geen obstakels in de aangegeven richting is</returns>
     public bool Occupied(Vector2 direction)
     {
         // If no collider is hit then there is no obstacle in that direction

@@ -1,15 +1,23 @@
 ﻿using Assets.Scripts;
 using UnityEngine;
 
+/// <summary>
+/// Pacman, de speler heeft controle over de bewegingen van Pacman. Pacman voert bepaalde acties als hij bepaalde GameObjecten aanraakt. Pacman regelt zijn eigen geluid en animaties.
+/// </summary>
 public class Pacman : BaseCharacter
 {
-    public AudioClip eatPelletSound;
-    public AudioClip deathSound;
+    [SerializeField]
+    private AudioClip eatPelletSound;
+    [SerializeField]
+    private AudioClip deathSound;
 
     private bool isDeathSoundPlaying = false;
-
-    public Sprite[] deathSpritesArray;
-    public Sprite[] normalSpritesArray;
+    private bool eaten = false;
+    
+    [SerializeField]
+    private Sprite[] deathSpritesArray;
+    [SerializeField]
+    private Sprite[] normalSpritesArray;
 
     protected override void Awake()
     {
@@ -31,10 +39,14 @@ public class Pacman : BaseCharacter
         transform.rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.forward);
     }
 
+    /// <summary>
+    /// Reset al Pacman zijn waardes naar de oorspronkelijke stand.
+    /// </summary>
     public override void ResetState()
     {
         base.ResetState();
         PlayNormalAnimation();
+        eaten = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -59,8 +71,9 @@ public class Pacman : BaseCharacter
                 {
                     ghost.Eaten();
                 }
-                else
+                else if(!eaten)
                 {
+                    eaten = true;
                     PacmanEaten();
                 }
             }
@@ -97,8 +110,13 @@ public class Pacman : BaseCharacter
     {
         gameObject.SetActive(false);
     }
-
+    /// <summary>
+    /// Speelt pellet opgegeten geluid.
+    /// </summary>
     public void PlayEatPelletSound() => PlayLoopingSound(eatPelletSound);
+    /// <summary>
+    /// Speelt dood geluid.
+    /// </summary>
     public void PlayDeathSound()
     {
         if (!isDeathSoundPlaying && deathSound != null)
@@ -110,6 +128,9 @@ public class Pacman : BaseCharacter
         }
     }
     private void ResetDeathSoundFlag() => isDeathSoundPlaying = false;
+    /// <summary>
+    /// Speelt dood animatie.
+    /// </summary>
     public void PlayDeathAnimation() => SetAnimation(deathSpritesArray, false);
     private void PlayNormalAnimation() => SetAnimation(normalSpritesArray, true);
 }

@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// BaseCharacter is een abstracte klasse. Deze defineert bepaalde acties en eigenschappen die ieder karakter in Pacman heeft. 
+/// Onder anderen: Locatie, geluid en of het GameObject actief is. Ieder karakter heeft een AudioSource, Movement en AnimatedSprite nodig.
+/// </summary>
 [RequireComponent(typeof(Movement))]
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(AnimatedSprite))]
@@ -16,17 +20,27 @@ public abstract class BaseCharacter : MonoBehaviour
         AnimatedSprite = GetComponent<AnimatedSprite>();
     }
 
+    /// <summary>
+    /// Wijzigt karakter terug naar originele waardes.
+    /// </summary>
     public virtual void ResetState()
     {
         gameObject.SetActive(true);
         Movement.ResetState();
     }
 
+    /// <summary>
+    /// Stopt alle bewegingen van een karakter.
+    /// </summary>
     public void StopMovement()
     {
         Movement.SetDirection(Vector2.zero);
     }
 
+    /// <summary>
+    /// Wijzigt locatie van een karakter.
+    /// </summary>
+    /// <param name="position">Nieuwe positie</param>
     public void SetPosition(Vector3 position)
     {
         position.z = transform.position.z;
@@ -63,7 +77,7 @@ public abstract class BaseCharacter : MonoBehaviour
     {
         if (AnimatedSprite != null)
         {
-            AnimatedSprite.sprites = sprites;
+            AnimatedSprite.Sprites = sprites;
             AnimatedSprite.loop = loop;
             AnimatedSprite.Restart();
         }

@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// beheert het gedrag van de geesten en past deze aan.
+/// Beheert het gedrag van de geesten en past deze aan.
 /// </summary>
 public class GhostBehaviorManager
 {

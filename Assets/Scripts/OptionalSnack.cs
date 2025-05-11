@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Assets.Scripts
 {
     /// <summary>
-    /// zorgt ervoor dat een snack kan worden opgegeten voor punten en op een later moment te spawnen in het spel.
+    /// Zorgt ervoor dat een snack kan worden opgegeten voor punten en op een later moment te spawnen in het spel.
     /// </summary>
     public class OptionalSnack : MonoBehaviour, IEatable
     {

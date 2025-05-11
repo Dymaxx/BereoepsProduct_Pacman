@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// hier wordt bepaald hoe de geest reageert in scatter modus.
+/// In deze klasse wordt bepaal hoe de geest reageert in scatter modus.
 /// </summary>
 public class GhostScatter : GhostBehavior
 {

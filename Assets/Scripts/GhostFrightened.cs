@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using UnityEngine;
 
 /// <summary>
@@ -5,12 +6,14 @@ using UnityEngine;
 /// </summary>
 public class GhostFrightened : GhostBehavior
 {
+
     public SpriteRenderer body;
     public SpriteRenderer eyes;
     public SpriteRenderer blue;
     public SpriteRenderer white;
 
     private bool eaten;
+    private bool isWhite = false;
 
     /// <summary>
     /// Wordt aangeroepen wanneer de geest de frightened-modus in gaat. 
@@ -27,7 +30,7 @@ public class GhostFrightened : GhostBehavior
         blue.enabled = true;
         white.enabled = false;
 
-        Invoke(nameof(Flash), Duration / 2f);
+        InvokeRepeating(nameof(ToggleFlash), Duration * 0.8f, 0.2f); // start flash na 80% en herhaal elke 0.2s
     }
 
     /// <summary>
@@ -41,6 +44,7 @@ public class GhostFrightened : GhostBehavior
         eyes.enabled = true;
         blue.enabled = false;
         white.enabled = false;
+        CancelInvoke(nameof(ToggleFlash));
     }
 
     /// <summary>
@@ -55,7 +59,7 @@ public class GhostFrightened : GhostBehavior
         blue.enabled = false;
         white.enabled = false;
 
-        CancelInvoke();
+        CancelInvoke(nameof(ToggleFlash));
     }
 
     /// <summary>
@@ -96,4 +100,14 @@ public class GhostFrightened : GhostBehavior
             white.GetComponent<AnimatedSprite>().Restart();
         }
     }
+    private void ToggleFlash()
+    {
+        if (eaten) return;
+        isWhite = !isWhite;
+
+        blue.enabled = !isWhite;
+        white.enabled = isWhite;
+    }
 }
+
+

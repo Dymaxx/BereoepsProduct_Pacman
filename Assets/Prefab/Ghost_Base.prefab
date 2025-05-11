@@ -100,9 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6d991d66a2c9c4a849a6abf179f005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: afc3b534b8a93544984cf1676ba61ae4, type: 3}
-  - {fileID: 21300000, guid: 6f51e42bf59063c4ab7a5608a42bd23d, type: 3}
+  Sprites: []
   animationTime: 0.25
   loop: 1
 --- !u!1 &1505168512142583735
@@ -205,11 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6d991d66a2c9c4a849a6abf179f005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: 7031ccde0b7585f4593ec9ccd2626e05, type: 3}
-  - {fileID: 21300000, guid: d5e15c75b88558b469ecc97990cce215, type: 3}
-  - {fileID: 21300000, guid: a66fca21a2eaf43459e2fbb561e630d6, type: 3}
-  - {fileID: 21300000, guid: 0046507bc33d04343a6bcbf90288aff2, type: 3}
+  Sprites: []
   animationTime: 0.25
   loop: 1
 --- !u!1 &3188256830404088632
@@ -594,7 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6d991d66a2c9c4a849a6abf179f005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites: []
+  Sprites: []
   animationTime: 0.25
   loop: 1
 --- !u!1 &3549600211078389648
@@ -801,8 +795,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6d991d66a2c9c4a849a6abf179f005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: 7031ccde0b7585f4593ec9ccd2626e05, type: 3}
-  - {fileID: 21300000, guid: d5e15c75b88558b469ecc97990cce215, type: 3}
+  Sprites: []
   animationTime: 0.25
   loop: 1

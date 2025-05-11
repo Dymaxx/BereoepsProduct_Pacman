@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// zorgt ervoor dat je naar de andere kant van de map wordt geteleporteerd.
+/// Zorgt ervoor dat je tussen de buizen kan teleporteren naar de andere kant van de map.
 /// </summary>
 public class NewMonoBehaviourScript : MonoBehaviour
 {

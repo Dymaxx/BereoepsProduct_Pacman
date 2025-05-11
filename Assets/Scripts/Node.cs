@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// kijkt welke richting je op kunt lopen bij een intersectie vanaf een bepaald punt.
+/// Kijkt welke richting je op kunt lopen bij een intersectie vanaf een bepaald punt.
 /// </summary>
 public class Node : MonoBehaviour
 {

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// hier wordt bepaald hoe de geest reageert in frightened modus.
+/// In deze klasse wordt bepaald hoe de geest reageert in frightened modus.
 /// </summary>
 public class GhostFrightened : GhostBehavior
 {

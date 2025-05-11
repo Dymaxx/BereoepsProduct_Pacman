@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Deze klasse regelt simpele animaties, door de array van Sprites te blijven loopen.
+/// Deze klasse zorgt voor het afspelen van sprite animaties. De animaties worden periodiek gewisseld op basis van de animationTime variablele.
 /// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 public class AnimatedSprite : MonoBehaviour

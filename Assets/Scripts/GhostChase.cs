@@ -1,7 +1,14 @@
 using UnityEngine;
 
+/// <summary>
+/// Bepaalt het gedrag van een geest in "chase"-modus, hier zullen de geesten de snelste route proberen te vinden naar de pacman.
+/// </summary>
 public class GhostChase : GhostBehavior
 {
+    /// <summary>
+    /// De geest kiest de richting die hem het dichtst bij Pac-Man brengt, gebaseerd op alle beschikbare richtingen van de huidige node.
+    /// </summary>
+    /// <param name="gameObject"></param>
     public override void Move(GameObject gameObject)
     {
         if (gameObject.TryGetComponent<Node>(out var node))

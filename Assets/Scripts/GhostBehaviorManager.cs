@@ -1,4 +1,7 @@
-﻿public class GhostBehaviorManager
+﻿/// <summary>
+/// beheert het gedrag van de geesten en past deze aan.
+/// </summary>
+public class GhostBehaviorManager
 {
     public GhostBehavior CurrentBehavior; 
 
@@ -7,6 +10,10 @@
         CurrentBehavior = initialBehavior;
     }
 
+    /// <summary>
+    /// veranderd het gedrag van de geest.
+    /// </summary>
+    /// <param name="newBehavior"></param>
     public void SwitchBehavior(GhostBehavior newBehavior)
     {
         if (CurrentBehavior == newBehavior)

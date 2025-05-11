@@ -1,7 +1,14 @@
 using UnityEngine;
 
+/// <summary>
+/// hier wordt bepaald hoe de geest reageert in scatter modus.
+/// </summary>
 public class GhostScatter : GhostBehavior
 {
+    /// <summary>
+    /// bepaald de richting waar de geest heen moet lopen in scatter modus.
+    /// </summary>
+    /// <param name="gameObject"></param>
     public override void Move(GameObject gameObject)
     {
         if (gameObject.TryGetComponent<Node>(out var node))

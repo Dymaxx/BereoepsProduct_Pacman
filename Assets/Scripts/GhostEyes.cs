@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Stuurt de richting van de ogen van de geest aan, zodat deze kijken in de richting waarin de geest beweegt.
+/// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 public class GhostEyes : MonoBehaviour
 {

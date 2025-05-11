@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// basisklasse voor het afspelen van geluid.
+/// </summary>
 public class AudioPlayer : MonoBehaviour
 {
     protected AudioSource audioSource;

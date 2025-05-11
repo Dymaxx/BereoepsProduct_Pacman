@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Assets.Scripts
 {
     /// <summary>
-    /// 
+    /// zorgt ervoor dat een snack kan worden opgegeten voor punten en op een later moment te spawnen in het spel.
     /// </summary>
     public class OptionalSnack : MonoBehaviour, IEatable
     {
@@ -38,7 +38,7 @@ namespace Assets.Scripts
         }
 
         /// <summary>
-        /// 
+        /// Regelt de acties als de snack is opgegeten. Je krijgt hier punten voor en de snack wordt weggehaald.
         /// </summary>
         public void Eaten()
         {
@@ -47,7 +47,7 @@ namespace Assets.Scripts
         }
 
         /// <summary>
-        /// 
+        /// activeert de sprite en de collision met de pacman.
         /// </summary>
         /// <returns></returns>
         public IEnumerator SpawnSnackAfterDelay()

@@ -1,16 +1,26 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Bepaalt het gedrag van een geest terwijl deze zich in het home gebied bevindt, de geest stuitert hier binnen de muren totdat hij wordt vrijgelaten.
+/// Bevat ook de animatie om de geest vrij te laten vanuit het home gebied.
+/// </summary>
 public class GhostHome : GhostBehavior
 {
     public Transform inside;
     public Transform outside;
 
+    /// <summary>
+    /// Wordt aangeroepen wanneer de geest naar huis gaat.
+    /// </summary>
     public override void OnEnter()
     {
         StopAllCoroutines();
     }
 
+    /// <summary>
+    /// Wordt aangeroepen wanneer de geest het huis verlaat.
+    /// </summary>
     public override void OnExit()
     {
         // Check for active self to prevent error when object is destroyed
@@ -20,6 +30,11 @@ public class GhostHome : GhostBehavior
         }
     }
 
+    /// <summary>
+    /// Bepaalt het gedrag van de geest terwijl hij binnen het huis is.
+    /// Als hij een obstakel raakt, keert hij om, dit creëert het stuiter-effect.
+    /// </summary>
+    /// <param name="gameObject"></param>
     public override void Move(GameObject gameObject)
     {
         // Reverse direction everytime the ghost hits a wall to create the effect of the ghost bouncing around the home

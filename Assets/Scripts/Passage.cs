@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// zorgt ervoor dat je naar de andere kant van de map wordt geteleporteerd.
+/// </summary>
 public class NewMonoBehaviourScript : MonoBehaviour
 {
     public Transform connection;

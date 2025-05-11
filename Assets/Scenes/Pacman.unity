@@ -444,6 +444,59 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &226711148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 226711150}
+  - component: {fileID: 226711149}
+  m_Layer: 0
+  m_Name: SnackSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &226711149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226711148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef0f265b4a3ffc478157a648fae3714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snackArray:
+  - {fileID: -8282778709157832115, guid: 45caf0ff284f9214ca81b4f945293ed4, type: 3}
+  - {fileID: -8282778709157832115, guid: 3d75c43a12abaa44a9e9a5937d374a7d, type: 3}
+  - {fileID: -8282778709157832115, guid: dbe4636e9c2bd3a4b83cc4ee2d8e8b23, type: 3}
+  - {fileID: -8282778709157832115, guid: 782b50e0c908ec245a5ccf230ddc47ab, type: 3}
+  - {fileID: -8282778709157832115, guid: 69c73c229410c1c45b74b7e31df489e1, type: 3}
+  - {fileID: -8282778709157832115, guid: 9b062a15a79a1814ea2d0551a3ded238, type: 3}
+  - {fileID: -8282778709157832115, guid: 8796cd2ef52330e4eba2530d2cd9554d, type: 3}
+  - {fileID: -8282778709157832115, guid: 3009726fa0ba13943b89c3c6fe8aefc8, type: 3}
+--- !u!4 &226711150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226711148}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &371280584
 GameObject:
   m_ObjectHideFlags: 0
@@ -13411,3 +13464,4 @@ SceneRoots:
   - {fileID: 1419412955}
   - {fileID: 1839381941}
   - {fileID: 1285086731}
+  - {fileID: 226711150}
